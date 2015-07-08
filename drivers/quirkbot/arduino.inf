@@ -4,8 +4,8 @@ Class=Ports
 ClassGuid={4D36E978-E325-11CE-BFC1-08002BE10318}
 Provider=Quirkbot
 LayoutFile=layout.inf
-CatalogFile=CDC_vista.cat
-DriverVer=11/15/2007,5.1.2600.0
+CatalogFile=quirkbot.cat
+DriverVer=07/08/2015,0.0.0
 
 [Manufacturer]
 Quirkbot=DeviceList, NTamd64
