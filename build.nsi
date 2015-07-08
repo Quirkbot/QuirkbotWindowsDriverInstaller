@@ -14,7 +14,7 @@ RequestExecutionLevel admin
 
   ;Name and file
   Name "Quirkbot Drivers Installer"
-  OutFile "Quirbot-Windows-Drivers-Installer.exe"
+  OutFile "Quirkbot-Windows-Drivers-Installer.exe"
   InstallDir "$TEMP\quirkbot"
 
   Caption "Quirkbot Drivers Installer"
@@ -26,7 +26,7 @@ RequestExecutionLevel admin
   VIAddVersionKey InternalName "Quirkbot Drivers Installer"
   VIAddVersionKey LegalCopyright "Quirkbot"
   VIAddVersionKey CompanyName Quirkbot
-  VIAddVersionKey OriginalFilename "Quirbot-Windows-Drivers-Installer.exe"
+  VIAddVersionKey OriginalFilename "Quirkbot-Windows-Drivers-Installer.exe"
 
 ;--------------------------------
 ;Interface Settings
