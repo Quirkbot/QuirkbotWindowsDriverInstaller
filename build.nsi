@@ -24,6 +24,7 @@ RequestExecutionLevel admin
   VIAddVersionKey FileDescription "Quirkbot Drivers Installer"
   VIAddVersionKey ProductName "Quirkbot Drivers Installer"
   VIAddVersionKey InternalName "Quirkbot Drivers Installer"
+  VIAddVersionKey LegalCopyright "Quirkbot"
   VIAddVersionKey CompanyName Quirkbot
   VIAddVersionKey OriginalFilename "Quirbot-Windows-Drivers-Installer.exe"
 
@@ -56,6 +57,25 @@ ${if} ${RunningX64}
 ${Else}
 	; 32 bits go here
 	ExecWait '"$INSTDIR\quirkbot\dpinst-x86.exe" /sw' $1
+${EndIf}
+
+!macro _CompletedWithSuccess _a _b _t _f
+    !if `${_f}` == ``
+        !undef _f
+        !define _f +2 
+    !endif
+    IntCmp ${_b} 1 +2
+    IntCmp ${_b} 256 `${_t}` `${_f}` `${_f}`
+    !if `${_t}` != ``
+        Goto `${_t}`
+    !endif
+!macroend
+!define CompletedWithSuccess `"" CompletedWithSuccess`
+
+${If} ${CompletedWithSuccess} $1
+${Else}
+  Sleep 3000
+    MessageBox MB_OK "Installation failed. Please try again."
 ${EndIf}
 
 sectionEnd
