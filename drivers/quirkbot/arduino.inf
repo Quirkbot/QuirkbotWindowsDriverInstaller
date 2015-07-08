@@ -18,7 +18,7 @@ DefaultDestDir=12
 ;------------------------------------------------------------------------------
 
 [DriverInstall.nt]
-include=mdmcpq.inf,Input.inf,usb.inf
+include=mdmcpq.inf
 CopyFiles=DriverCopyFiles.nt
 AddReg=DriverInstall.nt.AddReg
 
@@ -45,7 +45,7 @@ ServiceBinary=%12%\usbser.sys
 ;------------------------------------------------------------------------------
 
 [DriverInstall.NTamd64]
-include=mdmcpq.inf,Input.inf,usb.inf
+include=mdmcpq.inf
 CopyFiles=DriverCopyFiles.NTamd64
 AddReg=DriverInstall.NTamd64.AddReg
 
