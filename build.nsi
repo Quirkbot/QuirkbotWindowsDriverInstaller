@@ -40,65 +40,18 @@ Section "Install a Driver" InstDriver
     SetOutPath $TEMP
     File /r drivers\*
 
-    ${IfNot} ${AtLeastWin7}
-        ;--------------------------------
-        ;Windows XP
-
-        ${IfNot} ${AtLeastWin7}
-            MessageBox MB_OK "Make sure there is a Quirkbot connected to the computer."
-        ${EndIf}
-
-        InstDrv::InitDriverSetup /NOUNLOAD "{4d36e978-e325-11ce-bfc1-08002be10318}" "USB\Class_02&SubClass_02&Prot_00"
-        Pop $0
-        DetailPrint "InitDriverSetup: $0"
-
-        InstDrv::DeleteOemInfFiles /NOUNLOAD
-        Pop $0
-        DetailPrint "DeleteOemInfFiles: $0"
-        StrCmp $0 "00000000" PrintInfNames ContInst1
-
-        PrintInfNames:
-            Pop $0
-            DetailPrint "Deleted $0"
-            Pop $0
-            DetailPrint "Deleted $0"
-
-        ContInst1:
-            InstDrv::CreateDevice /NOUNLOAD
-            Pop $0
-            DetailPrint "CreateDevice: $0"
-
-
-            InstDrv::InstallDriver /NOUNLOAD "$TEMP\arduino.inf"
-            Pop $0
-            DetailPrint "InstallDriver: $0"
-            ${If} $0 == "00000000"
-                MessageBox MB_OK "Installation succeeded!"
-            ${ElseIf} $0 == "E000020B"
-                MessageBox MB_OK "Installation failed. Couldn't find a Quirkbot connected to the computer."
-            ${Else}
-                MessageBox MB_OK "Installation failed. Please try again."
-            ${EndIf}
-
-
+    ${if} ${RunningX64}
+        ExecWait '"$TEMP\dpinst-amd64.exe" /sw' $1
     ${Else}
-        ;--------------------------------
-        ;Windows 7 and above
+        ExecWait '"$TEMP\dpinst-x86.exe" /sw' $1
+    ${EndIf}
 
-        ${if} ${RunningX64}
-            ExecWait '"$TEMP\dpinst-amd64.exe" /sw' $1
-        ${Else}
-            ExecWait '"$TEMP\dpinst-x86.exe" /sw' $1
-        ${EndIf}
+    DetailPrint "Installation: $1"
 
-        DetailPrint "Installation: $1"
-
-        ${If} $1 > 0
-            MessageBox MB_OK "Driver installation succeeded!"
-        ${Else}
-            MessageBox MB_OK "Driver installation failed. Please try again."
-        ${EndIf}
-
+    ${If} $1 > 0
+        MessageBox MB_OK "Driver installation succeeded!"
+    ${Else}
+        MessageBox MB_OK "Driver installation failed. Please try again."
     ${EndIf}
 
 SectionEnd
