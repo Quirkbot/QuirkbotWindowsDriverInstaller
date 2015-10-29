@@ -1,6 +1,6 @@
 # Quirkbot Windows Drivers Installer
 
-### Build instructions
+### Build instructions (Windows)
 
 - Downdload and install [NSIS](http://nsis.sourceforge.net/Download) (testd with ```3.0b1```).
 - Right click ```build.nsi``` and select ```Compile Script``.
