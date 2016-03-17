@@ -10,8 +10,8 @@
     InstallDir "$TEMP\quirkbot"
 
     Caption "Quirkbot drivers installation"
-    VIProductVersion "1.0.0.0"
-    VIAddVersionKey ProductVersion "1.0.0.0"
+    VIProductVersion "1.0.0.1"
+    VIAddVersionKey ProductVersion "1.0.0.1"
     VIAddVersionKey FileVersion "1.0"
     VIAddVersionKey FileDescription "Quirkbot"
     VIAddVersionKey ProductName "Quirkbot"
@@ -37,21 +37,29 @@
 ;--------------------------------
 Section "Install a Driver" InstDriver
 
-    SetOutPath $TEMP
-    File /r drivers\*
+    ${If} ${AtMostWin8.1}
+        SetOutPath $TEMP
+        File /r drivers\*
 
-    ${if} ${RunningX64}
-        ExecWait '"$TEMP\dpinst-amd64.exe" /sw' $1
+        ${if} ${RunningX64}
+            ExecWait '"$TEMP\dpinst-amd64.exe" /u old1000\quirkbot.inf /S' $1
+            DetailPrint "Uninstall: $1"
+            ExecWait '"$TEMP\dpinst-amd64.exe" /sw' $1
+        ${Else}
+            ExecWait '"$TEMP\dpinst-x86.exe" /u old1000\quirkbot.inf /S' $1
+            DetailPrint "Uninstall: $1"
+            ExecWait '"$TEMP\dpinst-x86.exe" /sw' $1
+        ${EndIf}
+
+        DetailPrint "Installation: $1"
+
+        ${If} $1 > 0
+            MessageBox MB_OK "Driver installation succeeded!"
+        ${Else}
+            MessageBox MB_OK "Driver installation failed. Please try again."
+        ${EndIf}
     ${Else}
-        ExecWait '"$TEMP\dpinst-x86.exe" /sw' $1
-    ${EndIf}
-
-    DetailPrint "Installation: $1"
-
-    ${If} $1 > 0
-        MessageBox MB_OK "Driver installation succeeded!"
-    ${Else}
-        MessageBox MB_OK "Driver installation failed. Please try again."
+        MessageBox MB_OK "Your Windows version doesn't need any drivers!"
     ${EndIf}
 
 SectionEnd
