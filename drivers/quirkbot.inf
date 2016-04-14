@@ -2,7 +2,8 @@
 DriverPackageDisplayName="Quirkbot USB Driver"
 ManufacturerName="Quirkbot (www.quirkbot.com)"
 ServiceName="USB RS-232 Emulation Driver"
-quirkbot.bootloader.name="Quirkbot bootloader"
+quirkbot.bootloadercdc.name="Quirkbot CDC Bootloader"
+quirkbot.bootloadercdcmidi.name="Quirkbot CDC & MIDI Bootloader"
 quirkbot.sketch.name="Quirkbot"
 
 [DefaultInstall]
@@ -15,7 +16,7 @@ Signature="$Windows NT$"
 Provider=%ManufacturerName%
 DriverPackageDisplayName=%DriverPackageDisplayName%
 CatalogFile=quirkbot.cat
-DriverVer=01/07/2015,1.0.0.0
+DriverVer=03/23/2016, 2.0.0.0
 
 [Manufacturer]
 %ManufacturerName%=DeviceList, NTamd64, NTia64
@@ -25,20 +26,26 @@ FakeModemCopyFileSection=12
 DefaultDestDir=12
 
 [DeviceList]
-%quirkbot.bootloader.name%=DriverInstall, USB\VID_2886&PID_f004
-%quirkbot.sketch.name%=DriverInstall, USB\VID_2886&PID_f005
-%quirkbot.sketch.name%=DriverInstall, USB\VID_2886&PID_f005&MI_00
+%quirkbot.bootloadercdc.name%=DriverInstall, USB\VID_2886&PID_f005
+%quirkbot.bootloadercdc.name%=DriverInstall, USB\VID_2886&PID_f005&MI_00
+%quirkbot.bootloadercdc.name%=DriverInstall, USB\VID_2886&PID_f005&MI_01
+%quirkbot.bootloadercdcmidi.name%=DriverInstall, USB\VID_2886&PID_f006&MI_00
+%quirkbot.sketch.name%=DriverInstall, USB\VID_2886&PID_f004&MI_00
 
 
 [DeviceList.NTamd64]
-%quirkbot.bootloader.name%=DriverInstall, USB\VID_2886&PID_f004
-%quirkbot.sketch.name%=DriverInstall, USB\VID_2886&PID_f005
-%quirkbot.sketch.name%=DriverInstall, USB\VID_2886&PID_f005&MI_00
+%quirkbot.bootloadercdc.name%=DriverInstall, USB\VID_2886&PID_f005
+%quirkbot.bootloadercdc.name%=DriverInstall, USB\VID_2886&PID_f005&MI_00
+%quirkbot.bootloadercdc.name%=DriverInstall, USB\VID_2886&PID_f005&MI_01
+%quirkbot.bootloadercdcmidi.name%=DriverInstall, USB\VID_2886&PID_f006&MI_00
+%quirkbot.sketch.name%=DriverInstall, USB\VID_2886&PID_f004&MI_00
 
 [DeviceList.NTia64]
-%quirkbot.bootloader.name%=DriverInstall, USB\VID_2886&PID_f004
-%quirkbot.sketch.name%=DriverInstall, USB\VID_2886&PID_f005
-%quirkbot.sketch.name%=DriverInstall, USB\VID_2886&PID_f005&MI_00
+%quirkbot.bootloadercdc.name%=DriverInstall, USB\VID_2886&PID_f005
+%quirkbot.bootloadercdc.name%=DriverInstall, USB\VID_2886&PID_f005&MI_00
+%quirkbot.bootloadercdc.name%=DriverInstall, USB\VID_2886&PID_f005&MI_01
+%quirkbot.bootloadercdcmidi.name%=DriverInstall, USB\VID_2886&PID_f006&MI_00
+%quirkbot.sketch.name%=DriverInstall, USB\VID_2886&PID_f004&MI_00
 
 [DriverInstall]
 include=mdmcpq.inf,usb.inf
@@ -46,8 +53,8 @@ CopyFiles = FakeModemCopyFileSection
 AddReg=DriverAddReg
 
 [DriverAddReg]
-HKR,,DevLoader,,*ntkern 
-HKR,,NTMPDriver,,usbser.sys 
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,usbser.sys
 HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"
 
 [DriverInstall.Services]
