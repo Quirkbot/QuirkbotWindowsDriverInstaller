@@ -6,7 +6,7 @@
     !include LogicLib.nsh
 ;--------------------------------
 ;General
-	RequestExecutionLevel user
+    RequestExecutionLevel user
     Name "Quirkbot drivers installation"
     OutFile "Quirkbot-Windows-Drivers-Installer.exe"
     InstallDir "$TEMP\quirkbot"
