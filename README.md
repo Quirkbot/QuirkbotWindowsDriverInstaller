@@ -2,9 +2,14 @@
 
 ## Build instructions (Windows)
 
-- Downdload and install [NSIS](http://nsis.sourceforge.net/Download) (verison ```3.0b3```).
-- Right click ```build.nsi``` and select ```Compile Script``.
-- Wait for ```Quirkbot-Windows-Drivers-Installer.exe``` to be generated.
+- Downdload and install [NSIS](http://nsis.sourceforge.net/Download) (verison `3.0b3`).
+- Install [NSIS UAC Plugin](https://nsis.sourceforge.io/UAC_plug-in):
+    - [Download zip with source files](https://nsis.sourceforge.io/mediawiki/images/8/8f/UAC.zip)
+    - Extract `UAC.zip\Plugins\x86-ansi\UAC.dll` to `C:\Program Files\NSIS\Plugins\x86-ansi\UAC.dll`
+    - Extract `UAC.zip\Plugins\x86-unicode\UAC.dll` to `C:\Program Files\NSIS\Plugins\x86-unicode\UAC.dll`
+    - Extract `UAC.zip\UAC.nsh` to `C:\Program Files\NSIS\Includes\UAC.sh`
+- Right click `build.nsi` and select `Compile Script`.
+- Wait for `Quirkbot-Windows-Drivers-Installer.exe` to be generated.
 
 
 ## Building releases
