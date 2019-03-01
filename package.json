@@ -1,22 +1,7 @@
 {
-	"name": "quirkbot-windows-drivers-installer",
-	"version" : "2.0.0",
+	"name": "quirkbot-driver",
+	"version" : "0.1.0",
 	"description" : "Windows drivers installers",
-	"author" : "Paulo Barcelos <paulo@quirkbot.com>",
-	"homepage" : "https://github.com/Quirkbot/QuirkbotWindowsDriversInstaller",
-	"license" : "SEE LICENSE IN LICENSE.txt",
-	"devDependencies": {
-      "gulp": "^3.9.1",
-      "gulp-clean": "^0.3.2",
-      "gulp-load-plugins": "^1.2.0",
-      "gulp-prompt": "^0.1.2",
-      "gulp-s3": "^0.3.0",
-      "merge-stream": "^1.0.0",
-      "run-sequence": "^1.1.5",
-      "yargs": "^4.2.0"
-    },
-    "scripts": {
-      "gulp": "node ./node_modules/gulp/bin/gulp.js",
-      "gulp:xunit": "npm run gulp -- --reporter xunit"
-    }
+	"homepage" : "https://github.com/strawbees/quirkbot-driver",
+	"license" : "MIT"
 }

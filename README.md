@@ -11,60 +11,26 @@
 - Right click `build.nsi` and select `Compile Script`.
 - Wait for `Quirkbot-Windows-Drivers-Installer.exe` to be generated.
 
+## Code signing
 
-## Building releases
+We use `SignTool` to sign both the driver's catalog file (`cat`) and installer. It says on the [documentation](https://docs.microsoft.com/en-us/dotnet/framework/tools/signtool-exe) that it comes with the Windows SDK but it seems to be a little bit tricker to do it on a fresh [Windows 7 VirtualBox image provided by Microsoft](https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/):
 
-You should build and test the release before deploying them:
+- [Install .NET Framework 4](https://www.microsoft.com/en-us/download/details.aspx?id=17851) (It has to be 4, 4.7 won't work)
+- [Install Windows SDK](https://www.microsoft.com/en-us/download/details.aspx?id=8279)
+- Add Windows SDK Tools binary folder to system `PATH`
 
-- Install node dependencies:
-```
-npm install
-```
-- Update the version in `package.json`
-- Run:
-```
-npm run gulp -- build
-```
+Once `signtool` is available from the `CMD` or `PowerShell`:
 
-## Deploying Releases
-To deploy to Amazon S3, please create the corresponding configuration
-files in `/aws-config/[environment].json`.
-For security, those files should not be included on the repository.
+- [Install and activate SafeNet driver and client](https://knowledge.digicert.com/solution/SO27164.html#attach)
+- Connect USB token
+- Run `signtool sign /tr http://timestamp.digicert.com /td sha256 /fd sha256 /a "PATH TO FILE"`
 
-Examples:
+To sign the driver, point to the catalog file inside the `drivers` folder. It should look something like this:
 
-#### `/aws-config/stage.json`
+`signtool sign /tr http://timestamp.digicert.com /td sha256 /fd sha256 /a ".\drivers\quirkbot.cat"`
 
-```
-{
-  "key": "YOUR_S3_KEY",
-  "secret": "YOUR_S3_SECRET",
-  "bucket": "code-stage.quirkbot.com",
-  "region": "us-east-1"
-}
+***You must sign the driver before building the NSIS installer***.
 
-```
-#### `/aws-config/production.json`
+Then build the NSIS installer and run the same command but pointing to the `exe` file:
 
-```
-{
-  "key": "YOUR_S3_KEY",
-  "secret": "YOUR_S3_SECRET",
-  "bucket": "code.quirkbot.com",
-  "region": "us-east-1"
-}
-
-```
-
-Before deploying, please run the "Building Releases" instructions and make sure
-everything works as desired. When you are ready to deploy:
-
-- Update the version in `package.json`
-- Run:
-```
-npm run gulp -- deploy --environment=stage
-```
-or
-```
-npm run gulp -- deploy --environment=production
-```
+`signtool sign /tr http://timestamp.digicert.com /td sha256 /fd sha256 /a ".\Quirkbot-Windows-Driver-Installer.exe"`
