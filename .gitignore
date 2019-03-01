@@ -1,9 +1,4 @@
 .DS_Store
-Quirkbot-Windows-Drivers-Installer.zip
-Quirkbot-Windows-Drivers-Only.zip
-quirkbot-windows-drivers-*
-quirkbot-windows-drivers
-s3_publish
-aws-config
 node_modules
-npm-debug.log
+*.log
+Quirkbot-Windows-Drivers-Installer.exe
